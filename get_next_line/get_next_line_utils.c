@@ -12,9 +12,9 @@
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char	*s)
+size_t ft_strlen(char *s)
 {
-	size_t	len;
+	size_t len;
 
 	len = 0;
 	while (*s++)
@@ -22,9 +22,9 @@ size_t	ft_strlen(char	*s)
 	return (len);
 }
 
-ssize_t	find_newline(char	*s)
+ssize_t find_newline(char *s)
 {
-	size_t	i;
+	size_t i;
 
 	if (!s)
 		return (-1);
@@ -38,44 +38,60 @@ ssize_t	find_newline(char	*s)
 	return (-1);
 }
 
-char	*ft_str_join_free_stash(char	*stash, char	const *buff)
+char *ft_init_stash(char const *buff)
 {
-	char	*res;
-	char	*ptr_end;
-	char	*orig_stash_dir;
-	size_t	len1;
-	size_t	len2;
+	size_t	len;
+	char 	*new;
+
+	len = ft_strlen(buff);
+	new = malloc(len + 1);
+	if (!new)
+		return (NULL);
+	ft_strlcpy_gnl(new, buff, len + 1);
+	return (new);
+}
+
+char *ft_strjoin_gnl(char *stash, char const *buff)
+{
+	char 	*res;
+	size_t 	len1;
+	size_t 	len2;
 
 	if (!buff)
-		return (NULL);
+		return (stash);
 	if (!stash)
-		if_not_stash(stash, buff);
+		return (ft_init_stash(buff));
 	len1 = ft_strlen(stash);
 	len2 = ft_strlen(buff);
-	orig_stash_dir = stash;
 	res = malloc(len1 + len2 + 1);
 	if (!res)
 		return (NULL);
-	ptr_end = res;
-	while (*stash)
-		*ptr_end++ = *stash++;
-	while (*buff)
-		*ptr_end++ = *buff++;
-	*ptr_end = '\0';
-	free (orig_stash_dir);
+	ft_strlcpy_gnl(res, stash, len1 + 1);
+	ft_strlcpy_gnl(res + len1, buff, len2 + 1);
+	free(stash);
 	return (res);
 }
 
-char	*if_not_stash(char	*stash, char	const *buff)
+char	*ft_extract_line(char	*stash)
 {
-	char	*mover;
+	char *nl_line;
+	int nl_index;
+	int i;
 
-	stash = malloc(ft_strlen(buff) + 1);
-	if (!stash)
+	if (!stash || stash[0] == '\0')
 		return (NULL);
-	mover = stash;
-	while (*buff)
-		*mover++ = *buff++;
-	*mover = '\0';
-	return (stash);
+	nl_index = ft_find_newline(stash);
+	if (nl_index == -1)
+		nl_index = ft_strlen(stash) - 1;
+	nl_line = (char *)malloc(nl_index + 2);
+	if (!nl_line)
+		return (NULL);
+	i = 0;
+	while (i <= nl_index)
+	{
+		nl_line[i] = stash[i];
+		i++;
+	}
+	nl_line[i] = '\0';
+	return (nl_line);
 }
