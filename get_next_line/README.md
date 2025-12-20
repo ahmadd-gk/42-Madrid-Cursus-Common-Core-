@@ -1,14 +1,14 @@
 Este proyecto ha sido creado como parte del currículo de 42 por "ahgutier"
 
-Descripción
+DESCRIPCIÓN
 En este proyecto nos piden que escribamos una función que devuelve una línea de un 'file descriptor (fd). El 'fd' es una referencia que apunta a un archivo que está en abierto en ese momento en tu dispositivo. Entonces, le pasamos esa referencia y de esa manera va hacia el archivo objetivo, y la función 'get_next_line' deberá de devolver una línea entera en forma de string del contenido del archivo, que será la línea que ha leído con el 'read' y almacenado respectivamente en el stash. Se meterá la función en un bucle hacia el mismo archivo y dependiendo del número de líneas que quieras sacar lo especificas en éste, por cada llamada = una línea leída del archivo, es decir, la primera llamada a la función 'get_next_line' leerá y te mostrará o devolverá la línea nº 1, la segunda llamada la línea nº 2... y así sucesivamente. Si ha llegado ya hacia el final del archivo y no hay o queda nada más que leer, o hay o ha ocurrido un error mientras la función está corriendo, ésta devolverá 'NULL'. La función 'open' se puede usar en el 'main' para acceder al archivo y operar con él.
 
-Instrucciones
+INSTRUCCIONES
 Las funciones externas que se pueden usar para proceder con la ejecución de este proyecto son 'read', 'malloc' y 'free'. 3 archivos: 'get_next_line.c', 'get_next_line_utils.c' y 'get_next_line.h' y 1a variable estática. Con la función 'read' vamos leyendo el archivo y almacenando en el buffer hasta completarse una sola línea, al tenerla, ésta se traslada al stash y así sucesivamente, cada vez que se pasan el número de bytes solicitados al stash revisamos si en uno de ellos es el '\n', si es encontrada, todo lo anterior, desde el salto de línea hasta el principio de ella, es almacenada en una variable de línea que habremos creado y ésta es devuelta al mismo tiempo que deberá de ser eliminada o borrada del stash (actualizar el stash) y dejar solo lo sobrante (lo posterior que queda), si hay, se queda en el stash hasta que se completa la línea siguiente (ya en otra llamada de la función principal) de la misma manera que lo hizo con la anterior. La variable de stash obviamente tendrá que ser estática (el valor es guardado entre llamada y llamada) porque al hacer otra llamada, lo sobrante mencionado anteriormente, tendrá que ser conservado para devolver el contenido original del mismo archivo al que se está accediendo (al igual que la función 'read' guarda también su posición actual en el archivo, y si también el stash o es guardado, se perderá contenido).
 
-Recursos
+RECURSOS
 [understanding get_next_line (english subtitles) - from Nikito, YouTube](https://youtu.be/-Mt2FdJjVno?si=rTMTt7MnU9814Zrj)
 
-Secciones adicionales
+SECCIONES ADICIONALES
 La función 'read' devuelve el número (ssize_t)  de bytes leídos, requerirá como parámetros el 'fd', un buffer, y el número de bytes a leer (en 'size_t'), si se hace una llamada de ella y ya ha llegado hasta el final desde la anterior llamada, devovlerá un 0 (EOF), si ha ocurrido un error, devolverá -1. Y el número de bytes leído será almacenado en una variable. Visualízalo como si fuera la barra vertical de cursor típico del ratón de un documento de texto moviéndose por él. Si quieres leer por ejemplo 5 bytes, avanzará 5 caracteres hacia adelante, 'Hola mundo' = 'Hola ', y los almacenará en el buffer o hueco temporal que le hayamos pasado.
 El tamaño del buffer o bytes a leer será definido a la hora de la compilación, asi que ésta puede variar
