@@ -6,54 +6,72 @@
 /*   By: ahgutier <ahgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 16:36:59 by ahgutier          #+#    #+#             */
-/*   Updated: 2025/11/19 16:36:59 by ahgutier         ###   ########.fr       */
+/*   Updated: 2025/12/20 19:32:03 by ahgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	static char	*stash;
+	char		*line;
 
-	stash = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	stash = ft_read_stash(fd, stash);
+	if (!stash)
+		return (NULL);
+	line = ft_extract_line(stash);
+	if (!line)
+	{
+		free(stash);
+		stash = NULL;
+		return (NULL);
+	}
+	stash = ft_update_stash(stash);
+	return (line);
 }
 
-char	*update_stash(char	*stash)
+char	*ft_update_stash(char *stash)
 {
-	char	*new_stashbaby;
+	char	*new_stash;
 	int		nl_index;
-	int		i;
-	int		j;
+	size_t	len;
+	size_t	i;
+	size_t	j;
 
+	if (!stash)
+		return (NULL);
 	nl_index = ft_find_newline(stash);
 	if (nl_index == -1)
 	{
 		free(stash);
 		return (NULL);
 	}
-	new_stashbaby = malloc(ft_strlen(stash) - nl_index);
-	if (!new_stashbaby)
+	len = ft_strlen(stash);
+	new_stash = malloc(len - nl_index);
+	if (!new_stash)
 		return (NULL);
-	i = nl_index + 1; // Para que se salte el '\n' NO para ell null terminator
-	while (stash[i])
-		new_stashbaby[j++] = stash[i++];
-	new_stashbaby[j] = '\0';
+	i = (size_t)nl_index + 1;
+	j = 0;
+	while (i < len)
+		new_stash[j++] = stash[i++];
+	new_stash[j] = '\0';
 	free(stash);
-	return (new_stashbaby);
+	return (new_stash);
 }
 
-size_t	ft_strlcpy_gnl(char	*dst, char	*src, size_t	size)
+size_t	ft_strlcpy_gnl(char *dst, const char *src, size_t size)
 {
-	size_t	i;
+	size_t i;
 
 	if (!dst || !src)
 		return (0);
 	i = 0;
 	if (size > 0)
 	{
-		while (src[i] && i < size - 1)
+		while (src[i] && i + 1 < size)
 		{
 			dst[i] = src[i];
 			i++;
@@ -65,10 +83,29 @@ size_t	ft_strlcpy_gnl(char	*dst, char	*src, size_t	size)
 	return (i);
 }
 
-char	*ft_read_stash(int	fd, char	*stash)
+char	*ft_read_stash(int fd, char *stash)
 {
-	char	*buff[BUFFER_SIZE + 1];
-	ssize_t	*bytes_read;
+	char	buf[BUFFER_SIZE + 1];
+	ssize_t	bytes_read;
 
-	bytes_read = read(fd, buff, BUFFER_SIZE);
+	bytes_read = 1;
+	while (ft_find_newline(stash) == -1 && bytes_read > 0)
+	{
+		bytes_read = read(fd, buf, BUFFER_SIZE);
+		if (bytes_read < 0)
+		{
+			free(stash);
+			return (NULL);
+		}
+		buf[bytes_read] = '\0';
+		stash = ft_strjoin_gnl(stash, buf);
+		if (!stash)
+			return (NULL);
+	}
+	return (stash);
 }
+
+/*
+	len = ft_strlen(stash);
+	// tamaño de lo que queda = len - (nl_index + 1) ; +1 para '\0' -> malloc(len - nl_index)
+*/
