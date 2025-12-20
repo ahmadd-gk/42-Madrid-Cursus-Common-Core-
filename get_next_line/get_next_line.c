@@ -6,7 +6,7 @@
 /*   By: ahgutier <ahgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 16:36:59 by ahgutier          #+#    #+#             */
-/*   Updated: 2025/12/20 19:32:03 by ahgutier         ###   ########.fr       */
+/*   Updated: 2025/12/20 20:47:35 by ahgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_update_stash(char *stash)
 
 size_t	ft_strlcpy_gnl(char *dst, const char *src, size_t size)
 {
-	size_t i;
+	size_t	i;
 
 	if (!dst || !src)
 		return (0);
@@ -104,8 +104,3 @@ char	*ft_read_stash(int fd, char *stash)
 	}
 	return (stash);
 }
-
-/*
-	len = ft_strlen(stash);
-	// tamaño de lo que queda = len - (nl_index + 1) ; +1 para '\0' -> malloc(len - nl_index)
-*/

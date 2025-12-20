@@ -6,7 +6,7 @@
 /*   By: ahgutier <ahgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 18:18:25 by ahgutier          #+#    #+#             */
-/*   Updated: 2025/12/20 20:39:24 by ahgutier         ###   ########.fr       */
+/*   Updated: 2025/12/20 20:48:57 by ahgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ size_t	ft_strlen(char const *s)
 
 ssize_t	ft_find_newline(char *s)
 {
-	size_t i;
+	size_t	i;
 
 	if (!s)
 		return (-1);
@@ -55,14 +55,14 @@ char	*ft_init_stash(const char *buff)
 	return (new);
 }
 
-char *ft_strjoin_gnl(char *stash, char const *buff)
+char	*ft_strjoin_gnl(char *stash, char const *buff)
 {
 	char	*res;
 	size_t	len1;
 	size_t	len2;
 
 	if (!buff)
-	    return (stash);
+		return (stash);
 	if (!stash)
 		return (ft_init_stash(buff));
 	len1 = ft_strlen(stash);
@@ -79,11 +79,11 @@ char *ft_strjoin_gnl(char *stash, char const *buff)
 	return (res);
 }
 
-char *ft_extract_line(char *stash)
+char	*ft_extract_line(char *stash)
 {
 	char	*line;
-	int nl_index;
-	int i;
+	int		nl_index;
+	int		i;
 
 	if (!stash || !stash[0])
 		return (NULL);
