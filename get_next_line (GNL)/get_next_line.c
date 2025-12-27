@@ -46,7 +46,7 @@ char	*ft_update_stash(char *stash)
 	nl_index = ft_find_newline(stash);
 	if (nl_index == -1)
 	{
-		free(stash);
+		free (stash);
 		return (NULL);
 	}
 	len = ft_strlen(stash);
@@ -85,22 +85,106 @@ size_t	ft_strlcpy_gnl(char *dst, const char *src, size_t size)
 
 char	*ft_read_stash(int fd, char *stash)
 {
-	char	buf[BUFFER_SIZE + 1];
+	char	*buf;
 	ssize_t	bytes_read;
 
+	buf = malloc(BUFFER_SIZE + 1);
+	if (!buf)
+		return (NULL);
 	bytes_read = 1;
 	while (ft_find_newline(stash) == -1 && bytes_read > 0)
 	{
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		if (bytes_read < 0)
-		{
-			free(stash);
-			return (NULL);
-		}
+			return (free(buf), free(stash), NULL);
 		buf[bytes_read] = '\0';
 		stash = ft_strjoin_gnl(stash, buf);
 		if (!stash)
-			return (NULL);
+			return (free(buf), NULL);
 	}
+	free(buf);
 	return (stash);
 }
+
+// Sacar todo el texto del archivo
+/* int	main(int ac, char **av)
+{
+	int		fd;
+	char	*line;
+
+	if (ac != 2)
+	{
+		write(2, "Usage: ./a.out <file>\n", 23);
+		return (1);
+	}
+
+	fd = open(av[1], O_RDONLY);
+	if (fd < 0)
+	{
+		perror("open");
+		return (1);
+	}
+
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break;
+		printf("%s", line);
+		free(line);
+	}
+
+	close(fd);
+	return (0);
+} */
+
+// Hasta una línea en específica
+/* int main(int ac, char **av)
+{
+	int		fd;
+	char	*line;
+	int		i;
+	int		n;
+
+	if (ac != 3)
+		return (1);
+	fd = open(av[1], O_RDONLY);
+	n = atoi(av[2]); // SOLO EN MAIN, nunca en GNL
+	i = 0;
+	while (i < n)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		printf("%s", line);
+		free(line);
+		i++;
+	}
+	close(fd);
+} */
+
+// Sacar una sola línea en concreto
+/* int main(int ac, char **av)
+{
+	int		fd;
+	char	*line;
+	int		i;
+	int		target;
+
+	if (ac != 3)
+		return (1);
+	fd = open(av[1], O_RDONLY);
+	target = atoi(av[2]);
+	i = 1;
+	while (i <= target)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (i == target)
+			printf("%s", line);
+		free(line);
+		i++;
+	}
+	close(fd);
+} */

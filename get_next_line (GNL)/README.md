@@ -6,7 +6,7 @@ This project has been created as part of the 42 curriculum by "ahgutier".
 
 هالمشروع معمول كجزء من منهاج 42 بواسطة "ahgutier".
 
--------------------------------------------------------------  ES  -------------------------------------------------------
+---------------------------------------------------------------------------------------  ES  --------------------------------------------------------------------------------------------------
 DESCRIPCIÓN
 En este proyecto nos piden que escribamos una función que devuelve una línea de un 'file descriptor (fd). El 'fd' es una referencia que apunta a un archivo que está en abierto en ese momento en tu dispositivo. Entonces, le pasamos esa referencia y de esa manera va hacia el archivo objetivo, y la función 'get_next_line' deberá de devolver una línea entera en forma de string del contenido del archivo, que será la línea que ha leído con el 'read' y almacenado respectivamente en el stash. Se meterá la función en un bucle hacia el mismo archivo y dependiendo del número de líneas que quieras sacar lo especificas en éste, por cada llamada = una línea leída del archivo, es decir, la primera llamada a la función 'get_next_line' leerá y te mostrará o devolverá la línea nº 1, la segunda llamada la línea nº 2... y así sucesivamente. Si ha llegado ya hacia el final del archivo y no hay o queda nada más que leer, o hay o ha ocurrido un error mientras la función está corriendo, ésta devolverá 'NULL'. La función 'open' se puede usar en el 'main' para acceder al archivo y operar con él.
 
@@ -20,7 +20,7 @@ SECCIONES ADICIONALES
 La función 'read' devuelve el número (ssize_t)  de bytes leídos, requerirá como parámetros el 'fd', un buffer, y el número de bytes a leer (en 'size_t'), si se hace una llamada de ella y ya ha llegado hasta el final desde la anterior llamada, devovlerá un 0 (EOF), si ha ocurrido un error, devolverá -1. Y el número de bytes leído será almacenado en una variable. Visualízalo como si fuera la barra vertical de cursor típico del ratón de un documento de texto moviéndose por él. Si quieres leer por ejemplo 5 bytes, avanzará 5 caracteres hacia adelante, 'Hola mundo' = 'Hola ', y los almacenará en el buffer o hueco temporal que le hayamos pasado.
 El tamaño del buffer o bytes a leer será definido a la hora de la compilación, asi que ésta puede variar.
 
--------------------------------------------------------------  EN  -------------------------------------------------------
+---------------------------------------------------------------------------------------  EN  --------------------------------------------------------------------------------------------------
 DESCRIPTION
 In this project, we are asked to write a function that returns a line from a file descriptor (fd). The fd is a reference that points to a file that is currently open on your device. By passing this reference, the function accesses the target file, and the get_next_line function must return a complete line as a string from the file’s contents. This line is the one read using read and stored accordingly in the stash.
 
@@ -47,7 +47,7 @@ and store them in the buffer or temporary space you provided.
 
 The buffer size or number of bytes to read is defined at compile time, so it may vary.
 
--------------------------------------------------------------  JP  -------------------------------------------------------
+---------------------------------------------------------------------------------------  JP  --------------------------------------------------------------------------------------------------
 説明
 このプロジェクトでは、ファイルディスクリプタ（fd）から1行を返す関数を作成することが求められます。fd は、デバイス上で現在開かれているファイルを指す参照です。この参照を渡すことで、対象のファイルにアクセスでき、get_next_line 関数はファイル内容から1行分を文字列として返す必要があります。この行は read によって読み込まれ、stash に保存されたものです。
 
@@ -76,7 +76,7 @@ read 関数は、読み取ったバイト数（ssize_t）を返します。引�
 
 バッファサイズ、または読み取るバイト数はコンパイル時に定義されるため、変更される可能性があります。
 
--------------------------------------------------------------  AR  -------------------------------------------------------
+---------------------------------------------------------------------------------------  AR  --------------------------------------------------------------------------------------------------
 الوصف
 بهالمشروع مطلوب منّا نكتب دالة بترجّع سطر واحد من واصف ملف (fd). الـ fd هو مرجع بيدلّ على ملف مفتوح حاليًا على الجهاز. لما نمرّر هالمرجع، الدالة بتوصل للملف المطلوب، ودالة get_next_line لازم ترجع سطر كامل على شكل string من محتوى الملف. هالسطر هو اللي انقرأ باستخدام read وانخزّن بالـ stash.
 

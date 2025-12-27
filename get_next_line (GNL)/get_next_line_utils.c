@@ -69,10 +69,7 @@ char	*ft_strjoin_gnl(char *stash, char const *buff)
 	len2 = ft_strlen(buff);
 	res = malloc(len1 + len2 + 1);
 	if (!res)
-	{
-		free(stash);
 		return (NULL);
-	}
 	ft_strlcpy_gnl(res, stash, len1 + 1);
 	ft_strlcpy_gnl(res + len1, buff, len2 + 1);
 	free(stash);
