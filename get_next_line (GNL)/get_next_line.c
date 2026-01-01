@@ -33,6 +33,53 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
+char	*ft_read_stash(int fd, char *stash)
+{
+	char	*buf;
+	ssize_t	bytes_read;
+
+	buf = malloc(BUFFER_SIZE + 1);
+	if (!buf)
+		return (NULL);
+	bytes_read = 1;
+	while (ft_find_newline(stash) == -1 && bytes_read > 0)
+	{
+		bytes_read = read(fd, buf, BUFFER_SIZE);
+		if (bytes_read < 0)
+			return (free(buf), free(stash), NULL);
+		buf[bytes_read] = '\0';
+		stash = ft_strjoin_gnl(stash, buf);
+		if (!stash)
+			return (free(buf), NULL);
+	}
+	free(buf);
+	return (stash);
+}
+
+char	*ft_extract_line(char *stash)
+{
+	char	*line;
+	int		nl_index;
+	int		i;
+
+	if (!stash || !stash[0])
+		return (NULL);
+	nl_index = ft_find_newline(stash);
+	if (nl_index == -1)
+		nl_index = ft_strlen(stash);
+	line = malloc(nl_index + 2);
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (i <= nl_index && stash[i])
+	{
+		line[i] = stash[i];
+		i++;
+	}
+	line[i] = '\0';
+	return (line);
+}
+
 char	*ft_update_stash(char *stash)
 {
 	char	*new_stash;
@@ -62,48 +109,25 @@ char	*ft_update_stash(char *stash)
 	return (new_stash);
 }
 
-size_t	ft_strlcpy_gnl(char *dst, const char *src, size_t size)
+char	*ft_strjoin_gnl(char *stash, char const *buff)
 {
-	size_t	i;
+	char	*new_buffer;
+	size_t	len1;
+	size_t	len2;
 
-	if (!dst || !src)
-		return (0);
-	i = 0;
-	if (size > 0)
-	{
-		while (src[i] && i + 1 < size)
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	while (src[i])
-		i++;
-	return (i);
-}
-
-char	*ft_read_stash(int fd, char *stash)
-{
-	char	*buf;
-	ssize_t	bytes_read;
-
-	buf = malloc(BUFFER_SIZE + 1);
-	if (!buf)
+	if (!buff)
+		return (stash);
+	if (!stash)
+		return (ft_init_stash(buff));
+	len1 = ft_strlen(stash);
+	len2 = ft_strlen(buff);
+	new_buffer = malloc(len1 + len2 + 1);
+	if (!new_buffer)
 		return (NULL);
-	bytes_read = 1;
-	while (ft_find_newline(stash) == -1 && bytes_read > 0)
-	{
-		bytes_read = read(fd, buf, BUFFER_SIZE);
-		if (bytes_read < 0)
-			return (free(buf), free(stash), NULL);
-		buf[bytes_read] = '\0';
-		stash = ft_strjoin_gnl(stash, buf);
-		if (!stash)
-			return (free(buf), NULL);
-	}
-	free(buf);
-	return (stash);
+	ft_strlcpy_gnl(new_buffer, stash, len1 + 1);
+	ft_strlcpy_gnl(new_buffer + len1, buff, len2 + 1);
+	free(stash);
+	return (new_buffer);
 }
 
 // Sacar todo el texto del archivo
