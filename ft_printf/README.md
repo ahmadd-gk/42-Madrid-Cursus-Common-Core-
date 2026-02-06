@@ -1,11 +1,11 @@
-* _Este proyecto ha sido creado como parte del currículo de 42 por <ahgutier>_
-* _This project was created as part of the 42 curriculum by <ahgutier>_
-* _Ce projet a été créé dans le cadre du cursus de 42 par <ahgutier>_
-* _Dieses Projekt wurde als Teil des 42-Curriculums von <ahgutier> erstellt_
-* _Этот проект был создан в рамках учебной программы 42 пользователем <ahgutier>_
-* _هالمشروع انعمل كجزء من منهج 42 من قبل <ahgutier>_
-* _本项目是 42 课程体系的一部分，由 <ahgutier> 创建_
-* _このプロジェクトは、42のカリキュラムの一環として <ahgutier> によって作成されました_
+* _Este proyecto ha sido creado como parte del currículo de 42 por "ahgutier"_
+* _This project was created as part of the 42 curriculum by "ahgutier"_
+* _Ce projet a été créé dans le cadre du cursus de 42 par "ahgutier"_
+* _Dieses Projekt wurde als Teil des 42-Curriculums von "ahgutier" erstellt_
+* _Этот проект был создан в рамках учебной программы 42 пользователем "ahgutier"_
+* _هالمشروع انعمل كجزء من منهج 42 من قبل "ahgutier"_
+* _本项目是 42 课程体系的一部分，由 "ahgutier" 创建_
+* _このプロジェクトは、42のカリキュラムの一環として 「ahgutier」 によって作成されました_
 
 # ES
 ## Descripción
